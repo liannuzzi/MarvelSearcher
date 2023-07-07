@@ -1,10 +1,11 @@
-import HeroesGrid from "@/components/HeroesGrid/HeroesGrid";
+import HeroesGridContainer from "@/components/HeroesGridContainer/HeroesGridContainer";
+
 
 function IndexPage() {
   return (
     <div>
       <h1>Heroes</h1>
-      <HeroesGrid/>
+      <HeroesGridContainer/>
     </div>
   );
 }
