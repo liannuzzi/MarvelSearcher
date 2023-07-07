@@ -1,9 +1,12 @@
+import HeroesGrid from "@/components/HeroesGrid/HeroesGrid";
+
 function IndexPage() {
-  return ( 
+  return (
     <div>
-      <h1>Hola</h1>
+      <h1>Heroes</h1>
+      <HeroesGrid/>
     </div>
-   );
+  );
 }
 
 export default IndexPage;
