@@ -1,17 +1,18 @@
 function HeroCard({ hero }) {
   return (
-    <div>
-      <div class="card text-bg-dark">
+      <div id="hero-card" className="card text-bg-dark">
         <img
           src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
           class="card-img"
           alt="..."
         />
-        <div class="card-img-overlay d-flex align-items-end">
+        <div className="card-img-overlay d-flex align-items-end">
           <h5 class="card-title">{hero.name}</h5>
         </div>
+        <div className="card-img-overlay d-flex align-items-start justify-content-end">
+          <i class="bi bi-star"></i>
+        </div>
       </div>
-    </div>
   );
 }
 

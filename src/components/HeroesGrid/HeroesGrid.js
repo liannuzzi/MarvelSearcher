@@ -3,8 +3,8 @@ import HeroCard from "../HeroCard/HeroCard";
 function HeroesGrid({heroes}) {
   
   return (
-    <div>
-      {heroes.map((hero)=><HeroCard hero={hero} />)}
+    <div className="heroes-grid">
+      {heroes?heroes.map((hero)=><HeroCard hero={hero} />):<p>Loading Heroes...</p>}
     </div>
   );
 }

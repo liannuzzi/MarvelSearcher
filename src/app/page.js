@@ -4,7 +4,6 @@ import HeroesGridContainer from "@/components/HeroesGridContainer/HeroesGridCont
 function IndexPage() {
   return (
     <div>
-      <h1>Heroes</h1>
       <HeroesGridContainer/>
     </div>
   );
