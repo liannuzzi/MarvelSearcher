@@ -1,18 +1,8 @@
-'use client'
-import { useState,useEffect } from "react";
+"use client";
+import { useSearchBarContext } from "@/app/context/SearchBarContext";
 
 function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-
-
-  useEffect(() => {
-    fetch(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${searchTerm}&orderBy=name&limit=100&ts=1&apikey=798a820405391028076a4b49bc50f7f5&hash=ff9f3b6fdf656a1b6f8c8250040cfb6e`)
-    .then((res) => res.json())
-    .then((data) => {
-        setSearchResults(data.data.results)
-    })
-}, [searchTerm])
+  const { searchTerm, searchText } = useSearchBarContext();
 
   return (
     <div>
@@ -25,7 +15,7 @@ function SearchBar() {
             id="search-bar"
             class="form-control mr-sm-2 "
             value={searchTerm}
-            onInput={(e) => setSearchTerm(e.target.value)}
+            onInput={(e) => searchText(e.target.value)}
             type="search"
             placeholder="Search"
             aria-label="Search"
