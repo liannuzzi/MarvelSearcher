@@ -36,12 +36,13 @@ export function SearchBarContextProvider({ children }) {
     text === "" ? setSearchTerm("") : setSearchTerm(text);
   }
 
+
   return (
     <SearchBarContext.Provider
       value={{
         searchTerm,
         searchResults,
-        searchText,
+        searchText
       }}
     >
       {children}
