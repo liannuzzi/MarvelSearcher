@@ -1,17 +1,18 @@
 "use client";
 
 import HeroesGrid from "../HeroesGrid/HeroesGrid";
-import { useSearchBarContext } from "@/app/context/SearchBarContext";
+import { useSearchBarContext } from "@/context/SearchBarContext";
 
 function HeroesGridContainer() {
   const { searchResults, searchTerm } = useSearchBarContext();
 
   return (
     <div>
-      {searchResults.length===0 && searchTerm!==''?
-      <p>No results for the search</p>:
-      <HeroesGrid heroes={searchResults} />
-    }
+      {searchResults.length === 0 && searchTerm !== "" ? (
+        <p>No results for the search</p>
+      ) : (
+        <HeroesGrid heroes={searchResults} />
+      )}
     </div>
   );
 }

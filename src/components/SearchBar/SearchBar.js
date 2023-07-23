@@ -1,16 +1,13 @@
 "use client";
-import { useSearchBarContext } from "@/app/context/SearchBarContext";
+import { useSearchBarContext } from "@/context/SearchBarContext";
 
 function SearchBar() {
   const { searchTerm, searchText } = useSearchBarContext();
 
   return (
-    <div>
+    <div className="container-fluid">
       <form class="form-inline my-2 my-lg-0">
         <div class="input-group">
-          <span class="input-group-text " id="basic-addon1">
-            <i class="bi bi-search"></i>
-          </span>
           <input
             id="search-bar"
             class="form-control mr-sm-2 "

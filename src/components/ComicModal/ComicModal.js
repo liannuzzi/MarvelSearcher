@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Link from "next/link";
 
 function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
   if (!isOpen) return null;
@@ -27,12 +28,35 @@ function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
             </div>
             <div class="modal-body">
               <div>
-                <ul>
+                <ul className="modal-comic-list">
                   {comicList.map((comic) => {
-                    {
-                      console.log(comic.title);
-                    }
-                    return <li key={comic.id}>{comic.title}</li>;
+                    return (
+                      <Link
+                        href={`/comics/${comic.id}`}
+                        style={{ color: "inherit", textDecoration: "inherit" }}
+                      >
+                        <li
+                          className="modal-comic-item"
+                          key={comic.id}
+                          data-bs-dismiss="modal"
+                          style={{ cursor: "pointer" }}
+                        >
+                          <div>
+                            <img
+                              className="modal-comic-img"
+                              src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                              alt={comic.title}
+                            ></img>
+                          </div>
+                          <div className="modal-comic-information">
+                            <p className="modal-comic-title">{comic.title}</p>
+                            <p className="modal-comic-description">
+                              {comic.description}
+                            </p>
+                          </div>
+                        </li>
+                      </Link>
+                    );
                   })}
                 </ul>
               </div>
@@ -40,7 +64,6 @@ function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
           </div>
         </div>
       </div>
-      <div></div>
     </div>
   );
 }

@@ -5,6 +5,14 @@
     margin-left: 16px;
 }
 
+#nav-container{
+    gap:10px;
+}
+
+#favorites-search-bar i{
+    color:grey;
+}
+
 .heroes-grid{
     display: flex;
     flex-wrap: wrap;
@@ -31,4 +39,57 @@
     height: 23px;
 }
 
+.modal-comic-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-comic-item{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.modal-comic-img{
+    height: 95px;
+    width: 64px ;
+}
+
+.modal-comic-information{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-comic-information:hover{
+    text-decoration: underline;
+    color: black;
+}
+
+.modal-comic-title{
+    font-weight: bold;
+    color: black;
+}
+
+.modal-comic-description{
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: black;
+}
+
+.comic-detail-container{
+    margin-top: 29px;
+    gap:32px;
+    margin-left: 73px;
+    margin-right: 73px  ;
+}
+
+
+.comic-detail-img{
+    height: 838px;
+    width: 545px;
+    object-fit: cover;
+}
 
