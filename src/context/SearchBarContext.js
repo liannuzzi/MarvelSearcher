@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export const SearchBarContext = createContext({});
 
@@ -16,6 +17,11 @@ function debounce(func, delay) {
   return debounced;
 }
 
+function extractNumberFromURL(url) {
+  const parts = url.split("/");
+  return parseInt(parts[parts.length - 2]);
+}
+
 export function SearchBarContextProvider({ children }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -24,9 +30,10 @@ export function SearchBarContextProvider({ children }) {
   );
   const [apiCalledForEmptySearch, setApiCalledForEmptySearch] = useState(false);
   const delayedAPICallRef = useRef(null);
+  const router = useRouter();
 
-  const apikey = "798a820405391028076a4b49bc50f7f5";
-  const hash = "ff9f3b6fdf656a1b6f8c8250040cfb6e";
+  const apikey = "b801ecfcc69a63855fa551806cf20296";
+  const hash = "1df3d49570e36411d700b0edf856d649";
 
   useEffect(() => {
     setRandomId(Math.floor(Math.random() * (1561 - 1 + 1)) + 1);
@@ -48,6 +55,9 @@ export function SearchBarContextProvider({ children }) {
                 console.log("Se ejecutó fetch vacio");
               });
           }
+        } else if (term.includes("marvel.com/comics/issue/")) {
+          const comicId = extractNumberFromURL(term);
+          router.push(`/comics/${comicId}`);
         } else {
           fetch(
             `http://gateway.marvel.com/v1/public/characters?nameStartsWith=${term}&orderBy=name&limit=100&ts=1&apikey=${apikey}&hash=${hash}`

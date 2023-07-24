@@ -17,6 +17,7 @@ function HeroesGrid({ heroes }) {
         .then((res) => res.json())
         .then((data) => {
           setComicList(data.data.results);
+          console.log("Se ejecuta fetch detalle de comics");
         });
     }
   }, [selectedCard]);

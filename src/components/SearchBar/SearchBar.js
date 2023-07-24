@@ -1,8 +1,18 @@
 "use client";
 import { useSearchBarContext } from "@/context/SearchBarContext";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 function SearchBar() {
   const { searchTerm, searchText } = useSearchBarContext();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const character = searchParams.get("character");
+    if (character) {
+      searchText(character);
+    }
+  }, [searchParams]);
 
   return (
     <div className="container-fluid">

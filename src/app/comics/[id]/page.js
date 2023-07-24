@@ -14,8 +14,9 @@ export default function Characters({ params }) {
       .then((res) => res.json())
       .then((data) => {
         setSearchResults(data.data.results);
+        console.log("Se ejecuta fetch de comics");
       });
-  }, [searchResults]);
+  }, []);
 
   return (
     <div>
@@ -61,7 +62,11 @@ export default function Characters({ params }) {
               <p style={{ fontWeight: "bold" }}>Penciller(s):</p>
               <ul>
                 {searchResults[0]?.creators?.items
-                  .filter((creator) => creator.role.includes("penciller"))
+                  .filter(
+                    (creator) =>
+                      creator.role.includes("penciller") ||
+                      creator.role.includes("penciler")
+                  )
                   .map((penciller) => (
                     <li key={penciller.resourceURI}>{penciller.name}</li>
                   ))}
