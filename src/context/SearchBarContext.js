@@ -46,7 +46,7 @@ export function SearchBarContextProvider({ children }) {
         if (term === "") {
           if (!apiCalledForEmptySearch) {
             fetch(
-              `http://gateway.marvel.com/v1/public/characters?orderBy=name&offset=${randomId}&limit=1&apikey=${apikey}&hash=${hash}`
+              `https://gateway.marvel.com/v1/public/characters?orderBy=name&offset=${randomId}&limit=1&apikey=${apikey}&hash=${hash}`
             )
               .then((res) => res.json())
               .then((data) => {
@@ -60,7 +60,7 @@ export function SearchBarContextProvider({ children }) {
           router.push(`/comics/${comicId}`);
         } else {
           fetch(
-            `http://gateway.marvel.com/v1/public/characters?nameStartsWith=${term}&orderBy=name&limit=100&ts=1&apikey=${apikey}&hash=${hash}`
+            `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${term}&orderBy=name&limit=100&ts=1&apikey=${apikey}&hash=${hash}`
           )
             .then((res) => res.json())
             .then((data) => {
