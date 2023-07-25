@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import * as bootstrap from "bootstrap";
+window.Modal = bootstrap.Modal;
 
 function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
   if (!isOpen) return null;
