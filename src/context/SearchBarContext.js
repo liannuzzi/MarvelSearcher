@@ -69,7 +69,7 @@ export function SearchBarContextProvider({ children }) {
               console.log("Se ejecutó fetch con contenido");
             });
         }
-      }, 2000);
+      }, 1000);
     }
 
     delayedAPICallRef.current(searchTerm);
