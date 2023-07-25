@@ -9,7 +9,7 @@ export default function Characters({ params }) {
 
   useEffect(() => {
     fetch(
-      `http://gateway.marvel.com/v1/public/comics/${params.id}?apikey=${apikey}&hash=${hash}&ts=1`
+      `https://gateway.marvel.com/v1/public/comics/${params.id}?apikey=${apikey}&hash=${hash}&ts=1`
     )
       .then((res) => res.json())
       .then((data) => {
