@@ -35,8 +35,8 @@ export function SearchBarContextProvider({ children }) {
   const delayedAPICallRef = useRef(null);
   const router = useRouter();
 
-  const apikey = "b801ecfcc69a63855fa551806cf20296";
-  const hash = "1df3d49570e36411d700b0edf856d649";
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
+  const hash = process.env.NEXT_PUBLIC_HASH;
 
   useEffect(() => {
     setRandomId(Math.floor(Math.random() * (1561 - 1 + 1)) + 1);
