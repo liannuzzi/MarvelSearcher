@@ -17,7 +17,6 @@ function HeroesGrid({ heroes }) {
         .then((res) => res.json())
         .then((data) => {
           setComicList(data.data.results);
-          console.log("Se ejecuta fetch detalle de comics");
         });
     }
   }, [selectedCard]);
@@ -31,6 +30,15 @@ function HeroesGrid({ heroes }) {
     setIsModalOpen(false);
   };
 
+  const isFavoriteCharacter = (heroId) => {
+    const favorites = JSON.parse(localStorage.getItem("favoriteComics")) || [];
+    return favorites.some((comic) =>
+      comic.characters?.items.some((character) =>
+        character.resourceURI.endsWith(`/${heroId}`)
+      )
+    );
+  };
+
   return (
     <div className="heroes-grid">
       {heroes ? (
@@ -39,6 +47,7 @@ function HeroesGrid({ heroes }) {
             hero={hero}
             key={hero.id}
             openModal={() => openModal(hero)}
+            isFavoriteCharacter={isFavoriteCharacter(hero.id)}
           />
         ))
       ) : (
@@ -49,7 +58,6 @@ function HeroesGrid({ heroes }) {
           isOpen={isModalOpen}
           onClose={closeModal}
           heroName={selectedCard?.name}
-          heroId={selectedCard?.id}
           comicList={comicList}
         />
       )}

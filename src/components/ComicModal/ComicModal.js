@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import * as bootstrap from "bootstrap";
 window.Modal = bootstrap.Modal;
 
-function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
+function ComicModal({ isOpen, onClose, heroName, comicList }) {
   if (!isOpen) return null;
 
   const [favoriteComics, setFavoriteComics] = useState(
@@ -17,12 +17,10 @@ function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
     }
   }, [isOpen]);
 
-  // Fn que chequea si el comic esta en la lista de favoritos
   const isFavoriteComic = (comicId) => {
     return favoriteComics.some((comic) => comic.id === comicId);
   };
 
-  // Function  para agregar/eliminar favoritos
   const handleFavoriteToggle = (e, comicId) => {
     e.stopPropagation();
     const isComicInFavorites = favoriteComics.some(
@@ -30,14 +28,12 @@ function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
     );
 
     if (isComicInFavorites) {
-      // Remueve comics de favoritos, filtr por todo lo que sea distinto al ID del comic
       const updatedFavorites = favoriteComics.filter(
         (comic) => comic.id !== comicId
       );
       setFavoriteComics(updatedFavorites);
       localStorage.setItem("favoriteComics", JSON.stringify(updatedFavorites));
     } else {
-      // Agrega comics a favoritos
       const comicToAdd = comicList.find((comic) => comic.id === comicId);
       if (comicToAdd) {
         setFavoriteComics([...favoriteComics, comicToAdd]);
@@ -66,47 +62,53 @@ function ComicModal({ isOpen, onClose, heroName, heroId, comicList }) {
             </div>
             <div class="modal-body">
               <div>
-                <ul className="modal-comic-list">
-                  {comicList.map((comic) => {
-                    return (
-                      <li className="modal-comic-item" key={comic.id}>
-                        <Link
-                          href={`/comics/${comic.id}`}
-                          style={{
-                            color: "inherit",
-                            textDecoration: "inherit",
-                          }}
-                        >
-                          <div>
-                            <img
-                              className="modal-comic-img"
-                              src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                              alt={comic.title}
-                              data-bs-dismiss="modal"
-                            ></img>
+                {comicList.length === 0 ? (
+                  <p>No comics for this character</p>
+                ) : (
+                  <ul className="modal-comic-list">
+                    {comicList.map((comic) => {
+                      return (
+                        <li className="modal-comic-item" key={comic.id}>
+                          <Link
+                            href={`/comics/${comic.id}`}
+                            style={{
+                              color: "inherit",
+                              textDecoration: "inherit",
+                            }}
+                          >
+                            <div>
+                              <img
+                                className="modal-comic-img"
+                                src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                                alt={comic.title}
+                                data-bs-dismiss="modal"
+                              ></img>
+                            </div>
+                          </Link>
+                          <div className="modal-comic-information">
+                            <p className="modal-comic-title">
+                              {comic.title}
+                              <i
+                                className={`bi bi-star${
+                                  isFavoriteComic(comic.id)
+                                    ? "-fill text-warning"
+                                    : ""
+                                }`}
+                                onClick={(e) =>
+                                  handleFavoriteToggle(e, comic.id)
+                                }
+                                style={{ cursor: "pointer", marginLeft: "5px" }}
+                              ></i>
+                            </p>
+                            <p className="modal-comic-description">
+                              {comic.description}
+                            </p>
                           </div>
-                        </Link>
-                        <div className="modal-comic-information">
-                          <p className="modal-comic-title">
-                            {comic.title}
-                            <i
-                              className={`bi bi-star${
-                                isFavoriteComic(comic.id)
-                                  ? "-fill text-warning"
-                                  : ""
-                              }`}
-                              onClick={(e) => handleFavoriteToggle(e, comic.id)}
-                              style={{ cursor: "pointer", marginLeft: "5px" }}
-                            ></i>
-                          </p>
-                          <p className="modal-comic-description">
-                            {comic.description}
-                          </p>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             </div>
           </div>

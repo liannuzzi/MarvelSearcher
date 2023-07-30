@@ -29,6 +29,9 @@ export function SearchBarContextProvider({ children }) {
     Math.floor(Math.random() * (1561 - 1 + 1)) + 1
   );
   const [apiCalledForEmptySearch, setApiCalledForEmptySearch] = useState(false);
+  const [characterIdsWithFavorites, setCharacterIdsWithFavorites] = useState(
+    []
+  );
   const delayedAPICallRef = useRef(null);
   const router = useRouter();
 
@@ -37,6 +40,8 @@ export function SearchBarContextProvider({ children }) {
 
   useEffect(() => {
     setRandomId(Math.floor(Math.random() * (1561 - 1 + 1)) + 1);
+    const characterIds = getCharacterIdsWithFavorites();
+    setCharacterIdsWithFavorites(characterIds);
     if (searchTerm !== "") {
       setApiCalledForEmptySearch(false);
     }
@@ -52,7 +57,6 @@ export function SearchBarContextProvider({ children }) {
               .then((data) => {
                 setSearchResults(data.data.results);
                 setApiCalledForEmptySearch(true);
-                console.log("Se ejecutó fetch vacio");
               });
           }
         } else if (term.includes("marvel.com/comics/issue/")) {
@@ -66,10 +70,9 @@ export function SearchBarContextProvider({ children }) {
             .then((data) => {
               setSearchResults(data.data.results);
               setApiCalledForEmptySearch(false);
-              console.log("Se ejecutó fetch con contenido");
             });
         }
-      }, 1000);
+      }, 300);
     }
 
     delayedAPICallRef.current(searchTerm);
@@ -83,6 +86,30 @@ export function SearchBarContextProvider({ children }) {
     text === "" ? setSearchTerm("") : setSearchTerm(text);
   }
 
+  function getFavoriteComics() {
+    return JSON.parse(localStorage.getItem("favoriteComics")) || [];
+  }
+
+  function getCharacterIdsWithFavorites() {
+    const favorites = getFavoriteComics();
+    const characterIds = favorites.reduce((ids, comic) => {
+      for (const character of comic.characters.items) {
+        const characterId = extractCharacterIdFromURI(character.resourceURI);
+        if (characterId && !ids.includes(characterId)) {
+          ids.push(characterId);
+        }
+      }
+      return ids;
+    }, []);
+    return characterIds;
+  }
+
+  function extractCharacterIdFromURI(uri) {
+    const parts = uri.split("/");
+    const characterId = parts[parts.length - 1];
+    return characterId;
+  }
+
   return (
     <SearchBarContext.Provider
       value={{
@@ -91,6 +118,9 @@ export function SearchBarContextProvider({ children }) {
         searchText,
         apikey,
         hash,
+        characterIdsWithFavorites,
+        setCharacterIdsWithFavorites,
+        setSearchResults,
       }}
     >
       {children}

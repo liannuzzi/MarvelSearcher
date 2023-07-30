@@ -48,6 +48,7 @@
 .modal-comic-item{
     display: flex;
     flex-direction: row;
+    gap: 20px;
 
 }
 
@@ -67,10 +68,13 @@
 }
 
 .modal-comic-description{
-  width: 300px;
-  white-space: nowrap;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  line-height: 1.6; /* Set the line-height to adjust the spacing between lines */
+  max-height: 4.8em; /* Calculate max-height: lines * line-height */
   color: black;
 }
 
@@ -78,8 +82,9 @@
     margin-top: 29px;
     gap:32px;
     margin-left: 73px;
-    margin-right: 73px  ;
+    margin-right: 73px;
 }
+
 
 
 .comic-detail-img{
@@ -88,3 +93,20 @@
     object-fit: cover;
 }
 
+
+@media (max-width: 999px) {
+.comic-detail-container{
+    flex-wrap: wrap;
+    
+}
+
+}
+
+@media (max-width: 545px) {
+.comic-detail-img{
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+}
