@@ -1,4 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project intro
+
+This project was created by Lucas Iannuzzi using Next.Js and Bootstrap.
+
+This tool serves as a marvel heroes search engine, while typing some text in the search bar you will receive all the coincidence for that text regarding Marvel heroes names. You can also click on the heroes card to see a list of comics related with that hero. The comics can be added to a favorites list and also a detail of them is available by clicking in the comic image.
+
+## Run project
+
+To run this project locally you have to follow this steps:
+
+```bash
+1. Create a .env.local file in the project folder
+2. Create the following variables in the .env.local file:
+    NEXT_PUBLIC_API_KEY
+    NEXT_PUBLIC_TOKEN_HASH
+3. Create a user account in the marvel portal to get a public and a private key for consuming the API (https://developer.marvel.com/)
+4. Assign the values to each variable:
+    NEXT_PUBLIC_API_KEY= *marvel public key*
+    NEXT_PUBLIC_TOKEN_HASH= *hash a concatenate of the following values: ts+private key + public key * (an option is to use https://www.md5hashgenerator.com/)
+5. Once this variables are complete you can follow the getting started section.
+```
 
 ## Getting Started
 
@@ -27,8 +47,6 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy in production
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To use the tool that is deployed in production follow this link --> https://marvel-searcher-zeta.vercel.app/
